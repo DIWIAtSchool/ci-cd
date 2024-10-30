@@ -24,3 +24,7 @@ jobs:
 
       - name: Build App 🏗
         run: dotnet build -c Release --no-restore WebApi-Weather/WebApi-Weather.sln
+
+      # Tests
+      - name: Automated Tests
+        run: dotnet test Weather.Tests -c Release --no-build 
