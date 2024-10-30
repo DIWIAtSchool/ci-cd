@@ -23,4 +23,4 @@ jobs:
         run: dotnet restore WebApi-Weather
 
       - name: Build App 🏗
-        run: dotnet build -c Release --no-restore WebApi-Weather\WebApi-Weather.sln
+        run: dotnet build -c Release --no-restore WebApi-Weather/WebApi-Weather.sln
