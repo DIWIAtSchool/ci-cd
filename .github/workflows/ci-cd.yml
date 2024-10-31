@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  DOTNET_VERSION: '8.0.x'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +19,7 @@ jobs:
       - name: Setup dotnet 8
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       # dotnet is already installed from the previous step, so we can just run dotnet commands
       - name: Restore dependencies 📦
@@ -28,3 +31,14 @@ jobs:
       # Tests
       - name: Automated Tests
         run: dotnet test Weather.Tests -c Release --no-build 
+
+      # Publish
+      - name: Publish App
+        run: dotnet publish -c Release -o ./out WebApi-Weather/WebApi-Weather.sln 
+
+      - name: Deploy to Azure Web Apps
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: WeatherForMe2
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_SECRET }}  
+          package: ./out
