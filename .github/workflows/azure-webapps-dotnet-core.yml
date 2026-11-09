@@ -54,7 +54,7 @@ jobs:
 
       - name: Build with dotnet
         working-directory: ./WebApi-Weather
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
